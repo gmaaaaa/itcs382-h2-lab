@@ -194,7 +194,7 @@ Switching from the in-memory store to H2 only required changing Main.java (the i
 
 2. The PARCEL table stores the size of a parcel as SMALL, MEDIUM or LARGE rather than as 1, 2 or 3. Identify the type of connascence between ParcelSize and the table in each case, and explain which one is weaker.
 
-Using text like SMALL, MEDIUM, or LARGE creates connascence of name, which is safer because wrong names fail immediately. Storing numbers (like 1, 2, 3) creates connascence of convention or position, which is risky because reordering the enum would silently corrupt old data.
+Storing SMALL, MEDIUM or LARGE gives connascence of name, because the table and ParcelSize must agree on the names. Storing 1, 2 or 3 gives connascence of convention (both must agree on what each number means), or of position if the number comes from the order of the enum. Connascence of name is the weaker one. The names are easy to read in the table, and a wrong name fails at once, but with numbers a change to the order of the enum would silently give old rows the wrong size.
 
 3. Project Phase 2 asks for a data store that needs no separate server. Explain why an embedded database such as H2 meets this rule, and describe the limit of an embedded database that Step 0.8 showed.
 
